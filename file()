@@ -1,0 +1,7 @@
+<?php
+$filename = "output.txt";
+$file_array = file($filename);
+foreach ($file_array as $line) {
+    echo $line . "<br>";
+}
+?>
