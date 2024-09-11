@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Handling</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<?php
+// Define the file path
+$filePath = 'C:\\Users\\richm\\OneDrive\\Documents\\BSIT Group 2 Exercise\\example.txt';
+
+// Check if the file exists
+if (file_exists($filePath)) {
+    // Try to read the file content using file_get_contents()
+    $content = @file_get_contents($filePath);
+    if ($content === false) {
+        echo "<div class='message error'>Hingi ka muna approval. Unable to read file due to permission issues.</div>";
+    } else {
+        echo "<div class='message success'>File exists. Reading content...</div>";
+        echo "<div class='file-content'>File Content:<br><pre>$content</pre></div>";
+
+        // Get the file content line by line using file()
+        $lines = @file($filePath);
+        if ($lines === false) {
+            echo "<div class='message error'>Hingi ka muna approval. Unable to read file lines due to permission issues.</div>";
+        } else {
+            echo "<div class='file-lines'>File content line by line:<br><pre>";
+            foreach ($lines as $line) {
+                echo htmlspecialchars($line);
+            }
+            echo "</pre></div>";
+        }
+    }
+} else {
+    echo "<div class='message error'>File does not exist. Creating a new file...</div>";
+
+    // Create a new file with initial content using file_put_contents()
+    $initialContent = "Hingi ka muna approval\nHingi ka muna approval\n";
+    file_put_contents($filePath, $initialContent);
+    echo "<div class='message success'>File created and initial content written.</div>";
+}
+?>
+
+</body>
+</html>
